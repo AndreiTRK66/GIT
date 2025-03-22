@@ -37,77 +37,66 @@ class _LoginViewState extends State<LoginView> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: FutureBuilder(
-          future: Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform,
+      body: Column(
+        children:[
+          TextField(
+            controller: _email,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: "Enter your email",
+            ),
           ),
-          builder: (context, snapshot){
-            switch (snapshot.connectionState){
-              case ConnectionState.done:
-                return Column(
-                    children:[
-                      TextField(
-                        controller: _email,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: "Enter your email",
-                        ),
-                      ),
-                      TextField(
-                        controller: _password,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText:"Enter your password",
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          await Firebase.initializeApp(
-                            options: DefaultFirebaseOptions.currentPlatform,
-                          );
+          TextField(
+            controller: _password,
+            enableSuggestions: false,
+            autocorrect: false,
+            obscureText: true,
+            decoration: InputDecoration(
+              hintText:"Enter your password",
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              await Firebase.initializeApp(
+                options: DefaultFirebaseOptions.currentPlatform,
+              );
 
-                          final email = _email.text;
-                          final password = _password.text;
-                          try{
-                            final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                            email: email,
-                            password: password);
-                            print(userCredential);
-                            } on FirebaseAuthException catch(e) {
-                              //print('Asta e eroarea');
-                              //print(e.code);
-                              if(e.code == 'user-not-found'){
-                                print('User not found');
-                            } else if(e.code == 'Wrong-Passowrd'){
-                                print('Wrong password');
-                                print(e.code);
-                              } else{
-                                print('Alta Eroare');
-                                print(e.code);
-                              }
+              final email = _email.text;
+              final password = _password.text;
+              try{
+                final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: email,
+                    password: password);
+                print(userCredential);
+              } on FirebaseAuthException catch(e) {
+                //print('Asta e eroarea');
+                //print(e.code);
+                if(e.code == 'user-not-found'){
+                  print('User not found');
+                } else if(e.code == 'Wrong-Passowrd'){
+                  print('Wrong password');
+                } else{
+                  print('Alta Eroare');
+                  print(e.code);
+                }
 
-                          }
-                        },
-                        child: const Text('Login'),
-                      ),
-
-                    ],
-                );
-
-                default:
-                return Text('Loading..');
-            }
-
-        }
+              }
+            },
+            child: const Text('Login'),
+          ),
+            TextButton(
+                onPressed: (){
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/register/',
+                      (route) => false,
+                  );
+                } ,
+                child: const Text('Not registered yet? Register here!'),
+            )
+        ],
       ),
     );
   }
-  
-
-
-
 }
