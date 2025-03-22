@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "887715690896",
+    "project_id": "primaaplicatie07",
+    "storage_bucket": "primaaplicatie07.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887715690896:android:9a2f8caaf4908ac79b1b15",
+        "android_client_info": {
+          "package_name": "com.example.primaaplicatie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7kB02KUybCHK8DHLjWx6hpbzBfxh_8FM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
